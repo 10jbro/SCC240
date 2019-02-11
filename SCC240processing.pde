@@ -22,7 +22,7 @@ void setup() {
 void draw() {
   // Display the contents of the current screen
   if (gameScreen == 0) {
-    startScreen();
+    initScreen();
   } else if (gameScreen == 1) {
     gameScreen();
   } else if (gameScreen == 2) {
@@ -32,92 +32,114 @@ void draw() {
 
 
 /********* SCREEN CONTENTS *********/
-void startScreen() {
-  // code for start screen
-  background(255,255,0);
-  textAlign(CENTER);
-  textSize(128);
-  fill(102, 153, 51);
-  text("Cultural Awareness Quiz", 860, 400); //sets position of text and text wording
-  
-  rect(500, 500, 300, 150, 7);
-  fill(255, 255, 255);
-  textSize(64);
-  text("Start", 650, 600); //sets position of text and text wording
-  
-  fill(102, 153, 51);
-  rect(860, 500, 500, 150, 7); //x,y, width, height, border radius
-  fill(255, 255, 255);
-  text("Leaderboard", 1110, 600); //sets position of text and text wording
-}
 void initScreen() {
   // codes of initial screen
   background(0);
   textAlign(CENTER);
+  textSize(64);
   text("Click to start", 860, 440);
 }
-void leaderScreen() {
+
+void startScreen() {
+  // code for start screen
+  background(102, 153, 51);
+  textAlign(CENTER);
+  textSize(128);
+  fill(255, 255, 255);
+  text("Cultural Awareness Quiz", 860, 400); //sets position of text and text wording
+  
+  rect(500, 500, 300, 150, 7);
+  fill(0, 0, 0);
+  textSize(64);
+  text("Start", 650, 600); //sets position of text and text wording
+  
+  fill(255, 255, 255);
+  rect(860, 500, 500, 150, 7); //x,y, width, height, border radius
+  fill(0, 0, 0);
+  text("Leaderboard", 1110, 600); //sets position of text and text wording
+}
+
+void leaderboardScreen() {
   // codes of game screen
 }
+
 void wantTutorialScreen() {
   // codes of game screen
 }
+
 void tutorialScreen() {
   // codes of game screen
 }
+
 void difficultyScreen() {
   //code for difficulty screen
-  background(255,255,0);
+  background(102, 153, 51);
   textAlign(CENTER);
   textSize(128);
-  fill(0, 0, 0);
+  fill(255, 255, 255);
   text("Select Difficulty", 860, 200); //sets position of text and text wording
   
   //Easy mode button
-  fill(102, 153, 51);
   rect(700, 250, 300, 150, 7);
-  fill(255, 255, 255);
+  fill(0, 0, 0);
   textSize(64);
   text("Easy", 850, 350); //sets position of text and text wording
   
   //Normal mode button
-  fill(102, 153, 51);
-  rect(700, 450, 300, 150, 7);
   fill(255, 255, 255);
+  rect(700, 450, 300, 150, 7);
+  fill(0, 0, 0);
   textSize(64);
   text("Normal", 850, 550); //sets position of text and text wording
   
   //Hard mode button
-  fill(102, 153, 51);
-  rect(700, 650, 300, 150, 7);
   fill(255, 255, 255);
+  rect(700, 650, 300, 150, 7);
+  fill(0, 0, 0);
   textSize(64);
   text("Hard", 850, 750); //sets position of text and text wording
 }
+
 void gameScreen() {
   // codes of game screen
 }
+
 void gameAndTutorialScreen() {
   // codes of game screen
 }
 void continueScreen() {
  // code for continue screen
-  background(255,255,0);
+  background(102, 153, 51);
   textAlign(CENTER);
   textSize(128);
-  fill(102, 153, 51);
+  fill(255, 255, 255);
   text("Time remaining:", 860, 400); //sets position of text and text wording
   
-  rect(500, 500, 300, 150, 7);
-  fill(255, 255, 255);
+  rect(500, 500, 400, 150, 7);
+  fill(0, 0, 0);
   textSize(64);
-  text("Continue?", 650, 600); //sets position of text and text wording
+  text("Continue?", 700, 600); //sets position of text and text wording
   
-  fill(102, 153, 51);
-  rect(860, 500, 500, 150, 7); //x,y, width, height, border radius
   fill(255, 255, 255);
+  rect(980, 500, 250, 150, 7); //x,y, width, height, border radius
+  fill(0, 0, 0);
   text("Exit?", 1110, 600); //sets position of text and text wording
 }
+
+void exitScreen() {
+ // code for continue screen
+  background(102, 153, 51);
+  textAlign(CENTER);
+  textSize(64);
+  fill(255, 255, 255);
+  text("Thanks for\nplaying", 1450, 300); //sets position of text and text wording
+  
+  rect(1300, 500, 300, 100, 7);
+  fill(0, 0, 0);
+  textSize(32);
+  text("Return to home", 1450, 560); //sets position of text and text wording
+}
+
 void uploadScreen() {
 }
 void gameOverScreen() {
