@@ -10,10 +10,17 @@
 
 int gameScreen = 0;
 
+int rectX, rectY;      // Position of square button
+int rectSize = 90;     // Diameter of rect
+color rectColor, baseColor;
+color rectHighlight;
+color currentColor;
+boolean rectOver = false;
+
 /********* SETUP BLOCK *********/
 
 void setup() {
-  size(500, 500);
+  size(1720, 880);
 }
 
 
@@ -22,7 +29,8 @@ void setup() {
 void draw() {
   // Display the contents of the current screen
   if (gameScreen == 0) {
-    initScreen();
+    //initScreen();
+    leaderScreen();
   } else if (gameScreen == 1) {
     gameScreen();
   } else if (gameScreen == 2) {
@@ -37,10 +45,27 @@ void initScreen() {
   // codes of initial screen
   background(0);
   textAlign(CENTER);
-  text("Click to start", height/2, width/2);
+  text("Click to start", 860, 440);
 }
 void leaderScreen() {
-  // codes of game screen
+  // code for leaderboard screen
+  background(255, 255, 0);
+  
+  //Leaderboard text
+  textAlign(CENTER);
+  textSize(40);
+  fill(0);
+  text("Leaderboard", 1200, 100);
+  
+  //Array from leaderbaord txt file
+  String[] lines = loadStrings();
+  
+  rect(1100, 600, 200, 70);
+  textSize(15);
+  fill(255);
+  text("Go Back to Start Screen", 1200, 640);
+  
+  
 }
 void wantTutorialScreen() {
   // codes of game screen
