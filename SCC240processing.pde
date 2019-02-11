@@ -10,27 +10,19 @@
 
 int gameScreen = 0;
 
-int rectX, rectY;      // Position of square button
-int rectSize = 90;     // Diameter of rect
-color rectColor, baseColor;
-color rectHighlight;
-color currentColor;
-boolean rectOver = false;
-
 /********* SETUP BLOCK *********/
 
 void setup() {
   size(1720, 880);
+  surface.setTitle("Cultural Awareness Quiz | SCC.240 Group Project"); //sets title for sketch
 }
-
 
 /********* DRAW BLOCK *********/
 
 void draw() {
   // Display the contents of the current screen
   if (gameScreen == 0) {
-    //initScreen();
-    leaderScreen();
+    startScreen();
   } else if (gameScreen == 1) {
     gameScreen();
   } else if (gameScreen == 2) {
@@ -40,7 +32,24 @@ void draw() {
 
 
 /********* SCREEN CONTENTS *********/
-
+void startScreen() {
+  // code for start screen
+  background(255,255,0);
+  textAlign(CENTER);
+  textSize(128);
+  fill(102, 153, 51);
+  text("Cultural Awareness Quiz", 860, 400); //sets position of text and text wording
+  
+  rect(500, 500, 300, 150, 7);
+  fill(255, 255, 255);
+  textSize(64);
+  text("Start", 650, 600); //sets position of text and text wording
+  
+  fill(102, 153, 51);
+  rect(860, 500, 500, 150, 7); //x,y, width, height, border radius
+  fill(255, 255, 255);
+  text("Leaderboard", 1110, 600); //sets position of text and text wording
+}
 void initScreen() {
   // codes of initial screen
   background(0);
@@ -48,24 +57,7 @@ void initScreen() {
   text("Click to start", 860, 440);
 }
 void leaderScreen() {
-  // code for leaderboard screen
-  background(255, 255, 0);
-  
-  //Leaderboard text
-  textAlign(CENTER);
-  textSize(40);
-  fill(0);
-  text("Leaderboard", 1200, 100);
-  
-  //Array from leaderbaord txt file
-  String[] lines = loadStrings();
-  
-  rect(1100, 600, 200, 70);
-  textSize(15);
-  fill(255);
-  text("Go Back to Start Screen", 1200, 640);
-  
-  
+  // codes of game screen
 }
 void wantTutorialScreen() {
   // codes of game screen
@@ -74,7 +66,33 @@ void tutorialScreen() {
   // codes of game screen
 }
 void difficultyScreen() {
-  // codes of game screen
+  //code for difficulty screen
+  background(255,255,0);
+  textAlign(CENTER);
+  textSize(128);
+  fill(0, 0, 0);
+  text("Select Difficulty", 860, 200); //sets position of text and text wording
+  
+  //Easy mode button
+  fill(102, 153, 51);
+  rect(700, 250, 300, 150, 7);
+  fill(255, 255, 255);
+  textSize(64);
+  text("Easy", 850, 350); //sets position of text and text wording
+  
+  //Normal mode button
+  fill(102, 153, 51);
+  rect(700, 450, 300, 150, 7);
+  fill(255, 255, 255);
+  textSize(64);
+  text("Normal", 850, 550); //sets position of text and text wording
+  
+  //Hard mode button
+  fill(102, 153, 51);
+  rect(700, 650, 300, 150, 7);
+  fill(255, 255, 255);
+  textSize(64);
+  text("Hard", 850, 750); //sets position of text and text wording
 }
 void gameScreen() {
   // codes of game screen
@@ -83,10 +101,24 @@ void gameAndTutorialScreen() {
   // codes of game screen
 }
 void continueScreen() {
-  // codes of game screen
+ // code for continue screen
+  background(255,255,0);
+  textAlign(CENTER);
+  textSize(128);
+  fill(102, 153, 51);
+  text("Time remaining:", 860, 400); //sets position of text and text wording
+  
+  rect(500, 500, 300, 150, 7);
+  fill(255, 255, 255);
+  textSize(64);
+  text("Continue?", 650, 600); //sets position of text and text wording
+  
+  fill(102, 153, 51);
+  rect(860, 500, 500, 150, 7); //x,y, width, height, border radius
+  fill(255, 255, 255);
+  text("Exit?", 1110, 600); //sets position of text and text wording
 }
 void uploadScreen() {
-  // codes of game screen
 }
 void gameOverScreen() {
   // codes for game over screen
