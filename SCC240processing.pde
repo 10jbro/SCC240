@@ -22,7 +22,7 @@ void setup() {
 void draw() {
   // Display the contents of the current screen
   if (gameScreen == 0) {
-    initScreen();
+    tutorialScreen();
   } else if (gameScreen == 1) {
     gameScreen();
   } else if (gameScreen == 2) {
@@ -63,12 +63,72 @@ void leaderboardScreen() {
   // codes of game screen
 }
 
-void wantTutorialScreen() {
-  // codes of game screen
+void skipTutorialScreen() {
+  // codes of skip tutorial screen
+  background(102, 153, 51);
+  textAlign(CENTER);
+  textSize(128);
+  fill(255, 255, 255);
+  text("Would you like a tutorial?", 860, 300); //sets position of text and text wording
+  
+  //Yes button
+  fill(255, 255, 255);
+  rect(700, 400, 300, 150, 7);
+  fill(0, 0, 0); //black text
+  textSize(64);
+  text("Yes", 850, 500); //sets position of text and text wording
+  
+  //Skip button
+  fill(255, 255, 255);
+  rect(600, 600, 500, 150, 7);
+  fill(0, 0, 0);
+  textSize(64);
+  text("Skip tutorial?", 850, 700); //sets position of text and text wording
 }
 
 void tutorialScreen() {
-  // codes of game screen
+  // code for tutorial screen
+  // codes of skip tutorial screen
+  background(102, 153, 51);
+  textAlign(CENTER);
+  textSize(128);
+  fill(255, 255, 255);
+  text("Tutorial", 860, 300); //sets position of text and text wording
+  
+  //Clap
+  fill(255, 255, 255);
+  rect(200, 400, 200, 150, 7);
+  fill(0, 0, 0); //black text
+  textSize(64);
+  text("Clap", 300, 500); //sets position of text and text wording
+  
+  //Tap
+  fill(255, 255, 255);
+  rect(500, 400, 200, 150, 7);
+  fill(0, 0, 0);
+  textSize(64);
+  text("Tap", 600, 500); //sets position of text and text wording
+  
+  //Breathe
+  fill(255, 255, 255);
+  rect(800, 400, 300, 150, 7);
+  fill(0, 0, 0);
+  textSize(64);
+  text("Breathe", 950, 500); //sets position of text and text wording
+  
+  //Photo-resistor
+  fill(255, 255, 255);
+  rect(1200, 400, 300, 250, 7);
+  fill(0, 0, 0);
+  textSize(64);
+  text("Cover\nSensor", 1350, 500); //sets position of text and text wording
+  
+  //Tap
+  fill(255, 255, 255);
+  rect(500, 700, 400, 150, 7);
+  fill(0, 0, 0);
+  textSize(64);
+  text("Play Game", 700, 800); //sets position of text and text wording
 }
 
 void difficultyScreen() {
