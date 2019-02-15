@@ -9,6 +9,10 @@
 // 2: Game-over Screen
 
 int gameScreen = 0;
+String[] questions = {"Question 1", "Question 2", "Question 3"};
+String[] q1Answers = {"A", "B", "C", "D"};
+String[] q2Answers = {"A", "B", "C", "D"};
+String[] q3Answers = {"A", "B", "C", "D"};
 
 /********* SETUP BLOCK *********/
 
@@ -22,7 +26,7 @@ void setup() {
 void draw() {
   // Display the contents of the current screen
   if (gameScreen == 0) {
-    tutorialScreen();
+    questionScreen();
   } else if (gameScreen == 1) {
     gameScreen();
   } else if (gameScreen == 2) {
@@ -48,12 +52,13 @@ void startScreen() {
   fill(255, 255, 255);
   text("Cultural Awareness Quiz", 860, 400); //sets position of text and text wording
   
+  fill(255, 255, 0);
   rect(500, 500, 300, 150, 7);
   fill(0, 0, 0);
   textSize(64);
   text("Start", 650, 600); //sets position of text and text wording
   
-  fill(255, 255, 255);
+  fill(255, 255, 0);
   rect(860, 500, 500, 150, 7); //x,y, width, height, border radius
   fill(0, 0, 0);
   text("Leaderboard", 1110, 600); //sets position of text and text wording
@@ -72,18 +77,18 @@ void skipTutorialScreen() {
   text("Would you like a tutorial?", 860, 300); //sets position of text and text wording
   
   //Yes button
-  fill(255, 255, 255);
+  fill(255, 255, 0);
   rect(700, 400, 300, 150, 7);
   fill(0, 0, 0); //black text
   textSize(64);
   text("Yes", 850, 500); //sets position of text and text wording
   
   //Skip button
-  fill(255, 255, 255);
+  fill(255, 255, 0);
   rect(600, 600, 500, 150, 7);
   fill(0, 0, 0);
   textSize(64);
-  text("Skip tutorial?", 850, 700); //sets position of text and text wording
+  text("Skip tutorial", 850, 700); //sets position of text and text wording
 }
 
 void tutorialScreen() {
@@ -176,6 +181,61 @@ void difficultyScreen() {
   text("Hard", 850, 750); //sets position of text and text wording
 }
 
+void questionScreen() {
+  //code for question screen
+  background(102, 153, 51);
+  textAlign(CENTER);
+  textSize(64);
+  fill(255, 255, 255);
+  text(questions[0], 1400, 200); //sets position of text and text wording
+  
+  fill(0, 255, 0);
+  ellipse(60, 60, 100, 100);
+  ellipse(170, 60, 100, 100);
+  ellipse(280, 60, 100, 100);
+  fill(0, 200, 255);
+  ellipse(1650, 60, 100, 100);
+  
+  fill(255, 255, 255);
+  textSize(32);
+  text("Time: ", 400, 50); //sets position of text and text wording
+  text("Score: ", 400, 90); //sets position of text and text wording
+  text("Round 1 ", 1500, 70); //sets position of text and text wording
+  
+  fill(255, 255, 255);
+  rect(50, 200, 1000, 600, 7);
+  fill(0, 0, 0);
+  text("Character Animations", 550, 500); //sets position of text and text wording
+
+  //Option A
+  fill(255, 255, 255);
+  rect(1200, 250, 400, 100, 7);
+  fill(0, 0, 0);
+  textSize(48);
+  text(q1Answers[0], 1400, 320); //sets position of text and text wording
+  
+  //Option B
+  fill(255, 255, 255);
+  rect(1200, 400, 400, 100, 7);
+  fill(0, 0, 0);
+  textSize(48);
+  text(q1Answers[1], 1400, 470); //sets position of text and text wording
+  
+  //Option C
+  fill(255, 255, 255);
+  rect(1200, 550, 400, 100, 7);
+  fill(0, 0, 0);
+  textSize(48);
+  text(q1Answers[2], 1400, 620); //sets position of text and text wording
+  
+  //Option D
+  fill(255, 255, 255);
+  rect(1200, 700, 400, 100, 7);
+  fill(0, 0, 0);
+  textSize(48);
+  text(q1Answers[3], 1400, 770); //sets position of text and text wording
+}
+
 void gameScreen() {
   // codes of game screen
 }
@@ -191,15 +251,16 @@ void continueScreen() {
   fill(255, 255, 255);
   text("Time remaining:", 860, 400); //sets position of text and text wording
   
+  fill(255, 255, 0);
   rect(500, 500, 400, 150, 7);
   fill(0, 0, 0);
   textSize(64);
-  text("Continue?", 700, 600); //sets position of text and text wording
+  text("Continue", 700, 600); //sets position of text and text wording
   
-  fill(255, 255, 255);
+  fill(255, 255, 0);
   rect(980, 500, 250, 150, 7); //x,y, width, height, border radius
   fill(0, 0, 0);
-  text("Exit?", 1110, 600); //sets position of text and text wording
+  text("Exit", 1110, 600); //sets position of text and text wording
 }
 
 void exitScreen() {
@@ -210,6 +271,7 @@ void exitScreen() {
   fill(255, 255, 255);
   text("Thanks for\nplaying", 1450, 300); //sets position of text and text wording
   
+  fill(255, 255, 0);
   rect(1300, 500, 300, 100, 7);
   fill(0, 0, 0);
   textSize(32);
