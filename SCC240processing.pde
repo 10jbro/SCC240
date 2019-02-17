@@ -66,6 +66,39 @@ void startScreen() {
 
 void leaderboardScreen() {
   // codes of game screen
+  background(102, 153, 51);
+  textSize(60);
+  fill(0,0,0);
+  text("Leaderboard", 900, 100); //sets position of text and text wording
+  
+  String[] lines = loadStrings("leaderboard.txt");
+  if(loadStrings("leaderboard.txt") == null)
+  {
+    println("file not found");
+  }
+  else
+  {
+    println("there are " + lines.length + " lines");
+      for (int i = 0 ; i < lines.length; i++) 
+      {
+        println(lines[i]);
+        //String leaderLine = lines[i];
+      }
+      
+      textSize(30);
+      text(lines[0], 1050, 250);
+      text(lines[1], 1050, 325);
+      text(lines[2], 1050, 400);
+      text(lines[3], 1050, 475);
+      text(lines[4], 1050, 550);
+  }
+  
+  
+  fill(255, 255, 0);
+  rect(915, 700, 340, 110, 7); //x,y, width, height, border radius
+  textSize(24);
+  fill(0,0,0);
+  text("Go Back to Start Screen", 950, 765);
 }
 
 void skipTutorialScreen() {
