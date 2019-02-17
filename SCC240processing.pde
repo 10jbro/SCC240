@@ -312,6 +312,22 @@ void exitScreen() {
 }
 
 void uploadScreen() {
+  background(102, 153, 51);
+  textSize(30);
+  textAlign(CENTER);
+  fill(0, 0, 0);
+  text("Upload Score to Leaderboard?", 1000, 270);
+  textSize(25);
+  text("Score: ", 900, 340);
+  fill(255, 255, 0);
+  rect(750, 500, 150, 50, 7);
+  rect(1100, 500, 150, 50, 7);
+  fill(0, 0, 0);
+  text("Yes?", 825, 535);
+  text("No?", 1175, 535);
+  fill(255, 255, 0);
+  ellipse(825, 630, 80, 80);
+  ellipse(1175, 630, 80, 80);
 }
 void gameOverScreen() {
   // codes for game over screen
