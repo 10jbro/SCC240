@@ -11,13 +11,13 @@ int sizeOfText, padding = 20, buttonWidth = 100, buttonHeight = 50;
 /********* OBJECTS *********/
 
 StartScreen StartScreenUI = new StartScreen();
-LeaderboardScreen LeaderboardScreenUI = new LeaderboardScreen();
+SkipTutorialScreen SkipTutorialUI = new SkipTutorialScreen();
+TutorialScreen TutorialUI = new TutorialScreen();
 
 /********* GAME STATES *********/
 
 final String STATE_ZERO_IDLE = "State_String_0";
 final String STATE_START_SCREEN = "State_String_1";
-final String STATE_LEADERBOARD_SCREEN = "State_String_7";
 final String STATE_SKIP_TUTORIAL_SCREEN = "State_String_2";
 final String STATE_TUTORIAL_SCREEN = "State_String_3";
 final String STATE_DIFFICULTY_SCREEN = "State_String_4";
@@ -53,7 +53,7 @@ boolean check = false;
 void setup() {
   size(1720, 880);
   surface.setTitle("Cultural Awareness Quiz | SCC.240 Group Project"); //sets title for sketch
-  //this.arduino();
+  this.arduino();
   gameStateInit();
 
 }
@@ -61,7 +61,7 @@ void setup() {
 /********* DRAW BLOCK *********/
 
 void draw() {
-  //checksInput();
+  checksInput();
   update();
 }
 
@@ -134,54 +134,65 @@ void update() {
       break;
     case STATE_START_SCREEN:
       StartScreenUI.render();
-      if(right && StartScreenUI.getButtonState().equals("Start")){
+      if(right && StartScreenUI.getButtonState().equals("Start"))
+      {
         StartScreenUI.changeState_STATE_LEADERBOARD_HIGHLIGHTED();
       }
-      else if(left && StartScreenUI.getButtonState().equals("Leaderboard")) {
+      else if(left && StartScreenUI.getButtonState().equals("Leaderboard")) 
+      {
         StartScreenUI.changeState_STATE_START_HIGHLIGHTED();
       }
-      else if(click) {
-        if(StartScreenUI.getButtonState().equals("Start")) {
+      else if(click) 
+      {
+        if(StartScreenUI.getButtonState().equals("Start")) 
+        {
           gameState = STATE_SKIP_TUTORIAL_SCREEN;
         }
-        else if(StartScreenUI.getButtonState().equals("Leaderboard")) {
-          gameState = STATE_LEADERBOARD_SCREEN;
+        else if(StartScreenUI.getButtonState().equals("Leaderboard")) 
+        {
+          println("leaderboard");
         }
       }
       break;
+    case STATE_SKIP_TUTORIAL_SCREEN:
       
-      case STATE_LEADERBOARD_SCREEN:
-      LeaderboardScreenUI.render();
-      if(click) {
-        gameState = STATE_START_SCREEN;
+      SkipTutorialUI.render();
+      if(right && SkipTutorialUI.getButtonState().equals("Yes"))
+      {
+        SkipTutorialUI.changeState_STATE_SKIP_HIGHLIGHTED();
+      }
+      else if(left && SkipTutorialUI.getButtonState().equals("Skip"))
+      {
+        SkipTutorialUI.changeState_STATE_ACCEPT_HIGHLIGHTED();
+      }
+      else if(click) 
+      {
+        if(SkipTutorialUI.getButtonState().equals("Skip")) 
+        {
+          gameState = STATE_QUESTION_SCREEN;
+        }
+        else if(SkipTutorialUI.getButtonState().equals("Yes")) 
+        {
+          gameState = STATE_TUTORIAL_SCREEN;
+        }
       }
       break;
-      
-    case STATE_SKIP_TUTORIAL_SCREEN:
-      skipTutorialScreen();
-      //if() {
-        //gameState = STATE_TUTORIAL_SCREEN;
-      //}
-      //} else if() {
-      //}
-      break;
     case STATE_TUTORIAL_SCREEN:
-      //if() {
+      TutorialUI.render();
+      if(click) {
         gameState = STATE_DIFFICULTY_SCREEN;
-      //}
-      //} else if() {
-      //}
+      }
       break;
     case STATE_DIFFICULTY_SCREEN:
       //if() {
-        gameState = STATE_QUESTION_SCREEN;
+        //gameState = STATE_QUESTION_SCREEN;
       //}
       //} else if() {
       //}
       break;
     case STATE_QUESTION_SCREEN: 
       //if() {
-        gameState = STATE_GAME_OVER_SCREEN;
+        //gameState = STATE_GAME_OVER_SCREEN;
       //}
       //} else if() {
       //}
