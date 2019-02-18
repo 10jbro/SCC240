@@ -11,11 +11,13 @@ int sizeOfText, padding = 20, buttonWidth = 100, buttonHeight = 50;
 /********* OBJECTS *********/
 
 StartScreen StartScreenUI = new StartScreen();
+LeaderboardScreen LeaderboardScreenUI = new LeaderboardScreen();
 
 /********* GAME STATES *********/
 
 final String STATE_ZERO_IDLE = "State_String_0";
 final String STATE_START_SCREEN = "State_String_1";
+final String STATE_LEADERBOARD_SCREEN = "State_String_7";
 final String STATE_SKIP_TUTORIAL_SCREEN = "State_String_2";
 final String STATE_TUTORIAL_SCREEN = "State_String_3";
 final String STATE_DIFFICULTY_SCREEN = "State_String_4";
@@ -143,10 +145,18 @@ void update() {
           gameState = STATE_SKIP_TUTORIAL_SCREEN;
         }
         else if(StartScreenUI.getButtonState().equals("Leaderboard")) {
-          println("leaderboard");
+          gameState = STATE_LEADERBOARD_SCREEN;
         }
       }
       break;
+      
+      case STATE_LEADERBOARD_SCREEN:
+      LeaderboardScreenUI.render();
+      if(click) {
+        gameState = STATE_START_SCREEN;
+      }
+      break;
+      
     case STATE_SKIP_TUTORIAL_SCREEN:
       skipTutorialScreen();
       //if() {
