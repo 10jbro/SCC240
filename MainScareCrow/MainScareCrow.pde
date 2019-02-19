@@ -13,6 +13,8 @@ int sizeOfText, padding = 20, buttonWidth = 100, buttonHeight = 50;
 StartScreen StartScreenUI = new StartScreen();
 SkipTutorialScreen SkipTutorialUI = new SkipTutorialScreen();
 TutorialScreen TutorialUI = new TutorialScreen();
+ContinueScreen ContinueUI = new ContinueScreen();
+LeaderboardScreen LeaderboardUI = new LeaderboardScreen();
 
 /********* GAME STATES *********/
 
@@ -24,11 +26,11 @@ final String STATE_TUTORIAL_SCREEN = "State_String_4";
 final String STATE_DIFFICULTY_SCREEN = "State_String_5";
 final String STATE_QUESTION_SCREEN = "State_String_6";
 final String STATE_CONTINUE_SCREEN = "State_String_7";
+final String STATE_EXIT_SCREEN = "State_String_8";
+final String STATE_UPLOAD_SCREEN = "State_String_9";
 //final String STATE_ = "State_String_5";
 //final String STATE_ = "State_String_4";
-//final String STATE_ = "State_String_5";
-//final String STATE_ = "State_String_4";
-final String STATE_GAME_OVER_SCREEN = "State_String_6";
+//final String STATE_GAME_OVER_SCREEN = "State_String_6";
 
 
 // We control which screen is active by settings / updating
@@ -123,7 +125,7 @@ void resetInputState() {
   left = false;
   right = false;
   click = false;
-  println("reset: " + up + " " + down + " " + left + " " + right);
+  //println("reset: " + up + " " + down + " " + left + " " + right);
 }
 
 void update() {
@@ -151,8 +153,14 @@ void update() {
         }
         else if(StartScreenUI.getButtonState().equals("Leaderboard")) 
         {
-          println("leaderboard");
+          gameState = STATE_LEADERBOARD_SCREEN;
         }
+      }
+      break;
+      case STATE_LEADERBOARD_SCREEN:
+      LeaderboardUI.render();
+      if(click) {
+        gameState = STATE_START_SCREEN;
       }
       break;
     case STATE_SKIP_TUTORIAL_SCREEN:
@@ -197,6 +205,26 @@ void update() {
       //}
       //} else if() {
       //}
+      break;
+      case STATE_CONTINUE_SCREEN: 
+        ContinueUI.render();
+      if(right && ContinueUI.getButtonState().equals("Continue")) {
+        ContinueUI.changeState_STATE_EXIT_HIGHLIGHTED();
+        } 
+      else if(left && ContinueUI.getButtonState().equals("Exit")) {
+        ContinueUI.changeState_STATE_CONTINUE_HIGHLIGHTED();
+      }
+      else if(click) 
+      {
+        if(ContinueUI.getButtonState().equals("Continue")) 
+        {
+          gameState = STATE_QUESTION_SCREEN;
+        }
+        else if(ContinueUI.getButtonState().equals("Exit")) 
+        {
+          gameState = STATE_EXIT_SCREEN;
+        }
+      }
       break;
   }
   
@@ -425,7 +453,24 @@ void exitScreen() {
 }
 
 void uploadScreen() {
+  background(102, 153, 51);
+  textSize(30);
+  textAlign(CENTER);
+  fill(0, 0, 0);
+  text("Upload Score to Leaderboard?", 1000, 270);
+  textSize(25);
+  text("Score: ", 900, 340);
+  fill(255, 255, 0);
+  rect(750, 500, 150, 50, 7);
+  rect(1100, 500, 150, 50, 7);
+  fill(0, 0, 0);
+  text("Yes?", 825, 535);
+  text("No?", 1175, 535);
+  fill(255, 255, 0);
+  ellipse(825, 630, 80, 80);
+  ellipse(1175, 630, 80, 80);
 }
+
 void gameOverScreen() {
   // codes for game over screen
 }
