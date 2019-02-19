@@ -40,7 +40,7 @@ class LeaderboardScreen {
       text(lines[4], 1050, 550);
   }
   
-  goBackButton.setTextConstraints(950, 765, 24);
+  goBackButton.setTextConstraints(1080, 765, 24);
   goBackButton.render();
   }
   
