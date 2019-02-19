@@ -18,11 +18,12 @@ TutorialScreen TutorialUI = new TutorialScreen();
 
 final String STATE_ZERO_IDLE = "State_String_0";
 final String STATE_START_SCREEN = "State_String_1";
-final String STATE_SKIP_TUTORIAL_SCREEN = "State_String_2";
-final String STATE_TUTORIAL_SCREEN = "State_String_3";
-final String STATE_DIFFICULTY_SCREEN = "State_String_4";
-final String STATE_QUESTION_SCREEN = "State_String_5";
-//final String STATE_ = "State_String_4";
+final String STATE_LEADERBOARD_SCREEN = "State_String_2";
+final String STATE_SKIP_TUTORIAL_SCREEN = "State_String_3";
+final String STATE_TUTORIAL_SCREEN = "State_String_4";
+final String STATE_DIFFICULTY_SCREEN = "State_String_5";
+final String STATE_QUESTION_SCREEN = "State_String_6";
+final String STATE_CONTINUE_SCREEN = "State_String_7";
 //final String STATE_ = "State_String_5";
 //final String STATE_ = "State_String_4";
 //final String STATE_ = "State_String_5";
@@ -53,7 +54,7 @@ boolean check = false;
 void setup() {
   size(1720, 880);
   surface.setTitle("Cultural Awareness Quiz | SCC.240 Group Project"); //sets title for sketch
-  this.arduino();
+  //this.arduino();
   gameStateInit();
 
 }
@@ -61,7 +62,7 @@ void setup() {
 /********* DRAW BLOCK *********/
 
 void draw() {
-  checksInput();
+  //checksInput();
   update();
 }
 
@@ -180,7 +181,7 @@ void update() {
     case STATE_TUTORIAL_SCREEN:
       TutorialUI.render();
       if(click) {
-        gameState = STATE_DIFFICULTY_SCREEN;
+        gameState = STATE_CONTINUE_SCREEN;
       }
       break;
     case STATE_DIFFICULTY_SCREEN:
