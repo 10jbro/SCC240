@@ -2,6 +2,7 @@ class ContinueScreen {
 
     final String STATE_CONTINUE_HIGHLIGHTED = "Continue";
     final String STATE_EXIT_HIGHLIGHTED = "Exit";
+  
     
     String buttonState = STATE_CONTINUE_HIGHLIGHTED;
     
@@ -11,13 +12,13 @@ class ContinueScreen {
     ContinueScreen() {
       
     }
-    
     void render() {
+      startTimer.countDown();
       background(102, 153, 51);
       textAlign(CENTER);
       textSize(128);
       fill(255, 255, 255);
-      text("Time remaining:", 860, 400); //sets position of text and text wording
+      text("Time remaining: " + startTimer.getTime(), 860, 400); //sets position of text and text wording
       
       continueButton.setTextConstraints(700, 600, 64);
       continueButton.render();
