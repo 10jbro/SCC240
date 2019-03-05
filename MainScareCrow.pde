@@ -7,30 +7,38 @@ String val="", gameState;
 color backgroundColour, fillColour;
 boolean up = false, down = false, left = false, right = false, click = false, highlightOnleft = true;
 int sizeOfText, padding = 20, buttonWidth = 100, buttonHeight = 50;
+Timer startTimer;
+
+int lives;
+int timerLength;
 
 /********* OBJECTS *********/
 
 StartScreen StartScreenUI = new StartScreen();
 SkipTutorialScreen SkipTutorialUI = new SkipTutorialScreen();
 TutorialScreen TutorialUI = new TutorialScreen();
+DifficultyScreen DifficultyUI = new DifficultyScreen();
+QuestionScreen QuestionUI = new QuestionScreen();
 ContinueScreen ContinueUI = new ContinueScreen();
 LeaderboardScreen LeaderboardUI = new LeaderboardScreen();
-QuestionScreen QuestionUI = new QuestionScreen();
+UploadScreen UploadUI = new UploadScreen();
+LivesLostScreen LivesLostUI = new LivesLostScreen();
+ExitScreen ExitUI = new ExitScreen();
+
 
 /********* GAME STATES *********/
 
 final String STATE_ZERO_IDLE = "State_String_0";
 final String STATE_START_SCREEN = "State_String_1";
-final String STATE_SKIP_TUTORIAL_SCREEN = "State_String_2";
-final String STATE_TUTORIAL_SCREEN = "State_String_3";
-final String STATE_DIFFICULTY_SCREEN = "State_String_4";
-final String STATE_QUESTION_SCREEN = "State_String_5";
-final String STATE_CONTINUE_SCREEN = "State_String_6";
-final String STATE_LEADERBOARD_SCREEN = "State_String_7";
+final String STATE_LEADERBOARD_SCREEN = "State_String_2";
+final String STATE_SKIP_TUTORIAL_SCREEN = "State_String_3";
+final String STATE_TUTORIAL_SCREEN = "State_String_4";
+final String STATE_DIFFICULTY_SCREEN = "State_String_5";
+final String STATE_QUESTION_SCREEN = "State_String_6";
+final String STATE_CONTINUE_SCREEN = "State_String_7";
 final String STATE_EXIT_SCREEN = "State_String_8";
 final String STATE_UPLOAD_SCREEN = "State_String_9";
-
-final String STATE_GAME_OVER_SCREEN = "State_String_6";
+final String STATE_LIVESLOST_SCREEN = "State_String_10";
 
 
 // We control which screen is active by settings / updating
@@ -56,15 +64,20 @@ boolean check = false;
 void setup() {
   size(1720, 880);
   surface.setTitle("Cultural Awareness Quiz | SCC.240 Group Project"); //sets title for sketch
-  this.arduino();
+  //this.arduino();
+  QuestionUI.initload();
+  LeaderboardUI.initload();
+  ContinueUI.initload();
+  DifficultyUI.initload();
   gameStateInit();
-
+  startTimer = new Timer(8);
+  lives = 3;
 }
 
 /********* DRAW BLOCK *********/
 
 void draw() {
-  checksInput();
+  //checksInput();
   update();
 }
 
@@ -125,17 +138,16 @@ void resetInputState() {
   left = false;
   right = false;
   click = false;
+  //println("reset: " + up + " " + down + " " + left + " " + right);
 }
 
 void update() {
-  
   switch(gameState) {
     case STATE_ZERO_IDLE:
       if(click) {
         gameState = STATE_START_SCREEN;
       }
       break;
-      
     case STATE_START_SCREEN:
       StartScreenUI.render();
       if(right && StartScreenUI.getButtonState().equals("Start"))
@@ -158,8 +170,13 @@ void update() {
         }
       }
       break;
-      
-    case STATE_SKIP_TUTORIAL_SCREEN:    
+      case STATE_LEADERBOARD_SCREEN:
+      LeaderboardUI.render();
+      if(click) {
+        gameState = STATE_START_SCREEN;
+      }
+      break;
+    case STATE_SKIP_TUTORIAL_SCREEN:
       SkipTutorialUI.render();
       if(right && SkipTutorialUI.getButtonState().equals("Yes"))
       {
@@ -173,7 +190,7 @@ void update() {
       {
         if(SkipTutorialUI.getButtonState().equals("Skip")) 
         {
-          gameState = STATE_QUESTION_SCREEN;
+          gameState = STATE_DIFFICULTY_SCREEN;
         }
         else if(SkipTutorialUI.getButtonState().equals("Yes")) 
         {
@@ -181,89 +198,177 @@ void update() {
         }
       }
       break;
-      
-      case STATE_LEADERBOARD_SCREEN:
-      LeaderboardUI.render();
-      if(click) {
-        gameState = STATE_START_SCREEN;
-      }
-      break;
-      
     case STATE_TUTORIAL_SCREEN:
       TutorialUI.render();
       if(click) {
-        gameState = STATE_QUESTION_SCREEN;
+        gameState = STATE_DIFFICULTY_SCREEN;
       }
       break;
-      
     case STATE_DIFFICULTY_SCREEN:
-      //if() {
-        //gameState = STATE_QUESTION_SCREEN;
-      //}
-      //} else if() {
-      //}
-      break;
-
-    case STATE_QUESTION_SCREEN: 
-      QuestionUI.render();
-      if((left || right) && !QuestionUI.getOverride()) 
+      DifficultyUI.render();
+      if(DifficultyUI.getButtonState().equals("Medium"))
       {
-        QuestionUI.overrideToJoystick();
-        println("overide: " + QuestionUI.getButtonState());
+        if(up){
+          DifficultyUI.changeState_STATE_HARD_HIGHLIGHTED();
+        }
+        else if(down){
+          DifficultyUI.changeState_STATE_EASY_HIGHLIGHTED();
+        }
       }
+      else if(down && DifficultyUI.getButtonState().equals("Hard"))
+      {
+        DifficultyUI.changeState_STATE_MEDIUM_HIGHLIGHTED();
+      }
+      else if(up && DifficultyUI.getButtonState().equals("Easy"))
+      {
+        DifficultyUI.changeState_STATE_MEDIUM_HIGHLIGHTED();
+      }
+      if(click) 
+      {
+        if(DifficultyUI.getButtonState().equals("Hard")) 
+        {
+          gameState = STATE_QUESTION_SCREEN;
+          timerLength = 10;
+          startTimer = new Timer(timerLength);
+        }
+        if(DifficultyUI.getButtonState().equals("Medium")) 
+        {
+          gameState = STATE_QUESTION_SCREEN;
+          timerLength = 20;
+          startTimer = new Timer(timerLength);
+        }
+        if(DifficultyUI.getButtonState().equals("Easy")) 
+        {
+          gameState = STATE_QUESTION_SCREEN;
+          timerLength = 30;
+          startTimer = new Timer(timerLength);
+        }
+      }
+      break;
+    case STATE_QUESTION_SCREEN: 
+
+      QuestionUI.render();
+
+      if((left || right) && !QuestionUI.getOverride()) 
+
+      {
+
+        QuestionUI.overrideToJoystick();
+
+        println("overide: " + QuestionUI.getButtonState());
+
+      }
+
       if(QuestionUI.getOverride()){
+
         if(down && QuestionUI.getButtonState().equals("A")) 
+
         {
+
            QuestionUI.changeState_STATE_B_HIGHLIGHTED();
+
         }
+
         else if(QuestionUI.getButtonState().equals("B")) 
+
         {
+
           if(up) {
+
             QuestionUI.changeState_STATE_A_HIGHLIGHTED();
+
           }
+
           else if(down) {
+
             QuestionUI.changeState_STATE_C_HIGHLIGHTED();
+
           }
+
         }
+
         else if(QuestionUI.getButtonState().equals("C")) 
+
         {
+
           if(up) {
+
             QuestionUI.changeState_STATE_B_HIGHLIGHTED();
+
           }
+
           else if(down) {
+
             QuestionUI.changeState_STATE_D_HIGHLIGHTED();
+
           }
+
         }
         else if(up && QuestionUI.getButtonState().equals("D")) 
         {
            QuestionUI.changeState_STATE_C_HIGHLIGHTED();
         }
         else if(click) {
-           gameState = STATE_START_SCREEN;
+           gameState = STATE_CONTINUE_SCREEN;
+           startTimer = new Timer(30);
         }
       }
       break;
-      
-      case STATE_CONTINUE_SCREEN: 
-        ContinueUI.render();
-        if(right && ContinueUI.getButtonState().equals("Continue")) {
-          ContinueUI.changeState_STATE_EXIT_HIGHLIGHTED();
-          } 
-        else if(left && ContinueUI.getButtonState().equals("Exit")) {
-          ContinueUI.changeState_STATE_CONTINUE_HIGHLIGHTED();
-        }
-        else if(click) 
+      case STATE_UPLOAD_SCREEN: 
+        UploadUI.render();
+      if(right && UploadUI.getButtonState().equals("Yes?")) {
+        UploadUI.changeState_STATE_NO_HIGHLIGHTED();
+        } 
+      else if(left && UploadUI.getButtonState().equals("No?")) {
+        UploadUI.changeState_STATE_YES_HIGHLIGHTED();
+      }
+      else if(click) 
+      {
+        if(UploadUI.getButtonState().equals("Yes?")) 
         {
-          if(ContinueUI.getButtonState().equals("Continue")) 
-          {
-            gameState = STATE_QUESTION_SCREEN;
-          }
-          else if(ContinueUI.getButtonState().equals("Exit")) 
-          {
-            gameState = STATE_EXIT_SCREEN;
-          }
+          gameState = STATE_EXIT_SCREEN;
+          println("Score Uploaded");
         }
-        break;      
+        else if(UploadUI.getButtonState().equals("No?")) 
+        {
+          gameState = STATE_EXIT_SCREEN;
+        }
+      }
+      break;
+      case STATE_CONTINUE_SCREEN: 
+        
+        ContinueUI.render();
+      if(right && ContinueUI.getButtonState().equals("Continue")) {
+        ContinueUI.changeState_STATE_EXIT_HIGHLIGHTED();
+        } 
+      else if(left && ContinueUI.getButtonState().equals("Exit")) {
+        ContinueUI.changeState_STATE_CONTINUE_HIGHLIGHTED();
+      }
+      else if(click) 
+      {
+        if(ContinueUI.getButtonState().equals("Continue")) 
+        {
+          gameState = STATE_QUESTION_SCREEN;
+          startTimer = new Timer(timerLength);
+        }
+        else if(ContinueUI.getButtonState().equals("Exit")) 
+        {
+          gameState = STATE_UPLOAD_SCREEN;
+        }
+      }
+      break;
+      case STATE_LIVESLOST_SCREEN:
+      LivesLostUI.render();
+      if(click) {
+        gameState = STATE_START_SCREEN;
+      }
+      break;
+      case STATE_EXIT_SCREEN:
+      ExitUI.render();
+      if(click) {
+        gameState = STATE_START_SCREEN;
+      }
+      break;
   }
   
   //reset input boolean
@@ -282,55 +387,26 @@ void gameStateInit() {
   textAlign(CENTER);
   textSize(64);
   text("Press on joystick to start", 860, 440);
+  println("init: " + gameState);
 }
-
-void gameScreen() {
-  // codes of game screen
-}
-
-void gameAndTutorialScreen() {
-  // codes of game screen
-}
-void continueScreen() {
- // code for continue screen
-  background(102, 153, 51);
-  textAlign(CENTER);
-  textSize(128);
-  fill(255, 255, 255);
-  text("Time remaining:", 860, 400); //sets position of text and text wording
   
-  fill(255, 255, 0);
-  rect(500, 500, 400, 150, 7);
-  fill(0, 0, 0);
-  textSize(64);
-  text("Continue", 700, 600); //sets position of text and text wording
+  /*Button buttonA = new Button(q1Answers[0], 1200, 250, 400, 100, color(255,255,255));
+  buttonA.setTextX(QuestionX);
+  buttonA.setSelected(check);
+  buttonA.render();
   
-  fill(255, 255, 0);
-  rect(980, 500, 250, 150, 7); //x,y, width, height, border radius
-  fill(0, 0, 0);
-  text("Exit", 1110, 600); //sets position of text and text wording
-}
-
-void exitScreen() {
- // code for continue screen
-  background(102, 153, 51);
-  textAlign(CENTER);
-  textSize(64);
-  fill(255, 255, 255);
-  text("Thanks for\nplaying", 1450, 300); //sets position of text and text wording
+  Button buttonB = new Button(q1Answers[1], 1200, 400, 400, 100, color(255,255,255));
+  buttonB.setTextX(QuestionX);
+  buttonB.render();
   
-  fill(255, 255, 0);
-  rect(1300, 500, 300, 100, 7);
-  fill(0, 0, 0);
-  textSize(32);
-  text("Return to home", 1450, 560); //sets position of text and text wording
-}
+  Button buttonC = new Button(q1Answers[2], 1200, 550, 400, 100, color(255,255,255));
+  buttonC.setTextX(QuestionX);
+  buttonC.render();
+  
+  Button buttonD = new Button(q1Answers[3], 1200, 700, 400, 100, color(255,255,255));
+  buttonD.setTextX(QuestionX);
+  buttonD.render();*/
 
-void uploadScreen() {
-}
-void gameOverScreen() {
-  // codes for game over screen
-}
 
 
 /********* INPUTS *********/
