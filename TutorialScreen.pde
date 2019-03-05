@@ -18,44 +18,35 @@ class TutorialScreen{
       text("Tutorial", 860, 200); //sets position of text and text wording
       
       //Clap
-      fill(229, 255, 204);
-      rect(200, 300, 200, 150, 7);
-      fill(0, 0, 0); //black text
-      textSize(64);
-      text("Clap", 300, 400); //sets position of text and text wording
-      fill(255,255,255);
       textSize(32);
       text("to select\noption A", 300, 500); //sets position of text and text wording
+      
+      PImage img1;
+      img1 = loadImage("tutorialImages/clap.png");
+      image(img1, 150, 200);
     
       //Tap
-      fill(229, 255, 204);
-      rect(500, 300, 200, 150, 7);
-      fill(0, 0, 0);
-      textSize(64);
-      text("Tap", 600, 400); //sets position of text and text wording
-      fill(255,255,255);
       textSize(32);
-      text("to select\noption B", 600, 500); //sets position of text and text wording
+      text("to select\noption B", 650, 500); //sets position of text and text wording
+      
+      PImage img2;
+      img2 = loadImage("tutorialImages/tap.png");
+      image(img2, 470, 200);
       
       //Breathe
-      fill(229, 255, 204);
-      rect(800, 300, 300, 150, 7);
-      fill(0, 0, 0);
-      textSize(64);
-      text("Breathe", 950, 400); //sets position of text and text wording
-      fill(255,255,255);
       textSize(32);
-      text("to select option C", 950, 500); //sets position of text and text wording
+      text("to select\noption C", 1050, 500); //sets position of text and text wording
+      
+      PImage img3;
+      img3 = loadImage("tutorialImages/breathe.png");
+      image(img3, 900, 260);
       
       //Photo-resistor
-      fill(229, 255, 204);
-      rect(1200, 300, 460, 150, 7);
-      fill(0, 0, 0);
-      textSize(64);
-      text("Cover Sensor", 1420, 400); //sets position of text and text wording
-      fill(255,255,255);
       textSize(32);
-      text("to select option D", 1420, 500); //sets position of text and text wording
+      text("to select\noption D", 1420, 500); //sets position of text and text wording
+      PImage img4;
+      img4 = loadImage("tutorialImages/cover.png");
+      image(img4, 1260, 230);
       
       textSize(32);
       fill(255,255,255);
