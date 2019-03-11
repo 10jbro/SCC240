@@ -35,8 +35,10 @@ class QuestionScreen
   PImage[] img = new PImage[3];
  // int[] numbers = new int[3];
  
- void initload(){
+ void initload()
+ {
    img[0] = loadImage("./tutorialImages/scarecrowStart.png");
+   img[1] = loadImage("./tutorialImages/background.png");
  }
 
 
@@ -93,9 +95,10 @@ class QuestionScreen
       rect(50, 200, 1000, 600, 7);
 
       fill(0, 0, 0);
-      image(img[0], 50, 200, 1000, 600);
-
-      text("Character Animations", 550, 500); //sets position of text and text wording
+      
+      image(img[1], 51, 201, 999, 599); //background image
+      
+      image(img[0], 320, 270, 700, 500); //initial character position
 
       
 
